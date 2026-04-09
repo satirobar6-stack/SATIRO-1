@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sátiro Bar | Coctelería Móvil Premium</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        satiro: {
+                            black: '#0a0a0a',
+                            dark: '#171717',
+                            gold: '#D4AF37',
+                            goldHover: '#B5952F',
+                            text: '#E5E5E5'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.9)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                        'bar-pattern': "linear-gradient(to right, rgba(23, 23, 23, 0.95), rgba(23, 23, 23, 0.95)), url('https://images.unsplash.com/photo-1470337458703-415120146915?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                        /* Fondo con el logo de marca de agua */
+                        'logo-watermark': "url('logo-satiro.jpg')"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles */
+        body {
+            background-color: #0a0a0a;
+            color: #E5E5E5;
+            position: relative;
+        }
+        
+        /* Marca de agua sutil en el fondo de la página */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('logo-satiro.jpg');
+            background-size: 400px;
+            background-repeat: repeat;
+            opacity: 0.03; /* Muy sutil para no interferir con la lectura */
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glass-effect {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(to right, #D4AF37, #FFF8D6, #D4AF37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Float WhatsApp Button */
+        .float-ws {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .float-ws:hover {
+            transform: scale(1.1);
+            background-color: #20b858;
+        }
+        
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-satiro-gold selection:text-satiro-black">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Encabezado -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#inicio" class="flex items-center gap-3">
+                        <img src="logo-satiro.jpg" alt="Sátiro Bar Movil" class="h-16 md:h-20 w-auto transition-all duration-300 hover:scale-105 drop-shadow-[0_0_10px_rgba(212,175,55,0.3)] rounded-full border border-satiro-gold/20" onerror="this.outerHTML='<span class=\'font-serif text-2xl font-bold tracking-widest text-white\'>SÁTIRO<span class=\'text-satiro-gold\'>BAR</span></span>'">
+                        <div class="hidden lg:block">
+                            <span class="block text-white font-serif font-bold text-xl tracking-widest leading-none">SÁTIRO</span>
+                            <span class="block text-satiro-gold font-sans text-xs tracking-[0.3em] font-semibold">BAR MOVIL</span>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#inicio" class="text-sm font-semibold hover:text-satiro-gold transition-colors uppercase tracking-wider">Inicio</a>
+                    <a href="#nosotros" class="text-sm font-semibold hover:text-satiro-gold transition-colors uppercase tracking-wider">Nosotros</a>
+                    <a href="#servicios" class="text-sm font-semibold hover:text-satiro-gold transition-colors uppercase tracking-wider">Servicios</a>
+                    <a href="#carta" class="text-sm font-semibold hover:text-satiro-gold transition-colors uppercase tracking-wider">La Carta</a>
+                    <a href="#contacto" class="bg-satiro-gold text-satiro-black px-6 py-2 rounded-full hover:bg-white transition-all duration-300 font-bold text-xs uppercase tracking-widest shadow-lg shadow-satiro-gold/20">Cotizar</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-white hover:text-satiro-gold focus:outline-none transition-colors">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="md:hidden glass-effect">
+            <div class="px-2 pt-2 pb-6 space-y-1 sm:px-3 flex flex-col items-center">
+                <a href="#inicio" class="block px-3 py-3 text-base font-medium hover:text-satiro-gold mobile-link">Inicio</a>
+                <a href="#nosotros" class="block px-3 py-3 text-base font-medium hover:text-satiro-gold mobile-link">Nosotros</a>
+                <a href="#servicios" class="block px-3 py-3 text-base font-medium hover:text-satiro-gold mobile-link">Servicios</a>
+                <a href="#carta" class="block px-3 py-3 text-base font-medium hover:text-satiro-gold mobile-link">La Carta</a>
+                <a href="#contacto" class="block px-3 py-3 text-base font-bold text-satiro-gold mobile-link">Cotizar Ahora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-no-repeat bg-fixed">
+        <div class="text-center px-4 max-w-4xl mx-auto z-10 mt-16">
+            <p class="text-satiro-gold font-serif italic text-xl md:text-2xl mb-4">La esencia de la fiesta, donde tú elijas</p>
+            <h1 class="text-6xl md:text-8xl font-bold font-serif mb-6 text-white uppercase tracking-tighter">
+                <span class="gold-gradient-text italic">Sátiro</span> Bar
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Elevamos tus bodas y eventos corporativos en Lima con mixología de autor, servicio de oficiales y un despliegue de lujo incomparable.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#contacto" class="bg-satiro-gold text-satiro-black px-10 py-4 rounded-full font-bold hover:bg-white transition-all duration-300 shadow-xl shadow-satiro-gold/30 text-sm uppercase tracking-widest">
+                    Cotiza tu Evento
+                </a>
+                <a href="#carta" class="border-2 border-white/30 backdrop-blur-sm text-white px-10 py-4 rounded-full font-bold hover:bg-white hover:text-satiro-black transition-all duration-300 text-sm uppercase tracking-widest">
+                    Ver Carta
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#nosotros" class="text-white/40 hover:text-satiro-gold transition-all">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Nosotros Section -->
+    <section id="nosotros" class="py-24 bg-transparent relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 relative group">
+                    <div class="absolute -inset-4 bg-satiro-gold/10 rounded-xl blur-lg group-hover:bg-satiro-gold/20 transition-all"></div>
+                    <img src="https://images.unsplash.com/photo-1575037614876-c38528118940?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bartender preparando cóctel" class="relative rounded-lg shadow-2xl border border-white/5 grayscale-[50%] hover:grayscale-0 transition-all duration-700">
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="h-[2px] w-12 bg-satiro-gold"></div>
+                        <h3 class="text-satiro-gold uppercase tracking-[0.3em] text-xs font-bold">Nuestra Historia</h3>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">Más que bebidas, <br>creamos <span class="text-satiro-gold italic font-normal">legados</span>.</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed text-lg">
+                        Liderado por profesionales de la administración y expertos en logística, <strong class="text-white">Sátiro Bar</strong> combina la disciplina y excelencia con el arte de la celebración.
+                    </p>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        Llevamos la experiencia de un bar de lujo a cualquier rincón de Lima y sus balnearios, garantizando un servicio de alto nivel donde la puntualidad y la elegancia son nuestras banderas.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-8 pt-6 border-t border-white/5">
+                        <div>
+                            <h4 class="text-4xl font-serif text-satiro-gold mb-2">+500</h4>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">Eventos Logrados</p>
+                        </div>
+                        <div>
+                            <h4 class="text-4xl font-serif text-satiro-gold mb-2">100%</h4>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">Protocolo y Calidad</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Section -->
+    <section id="servicios" class="py-24 bg-satiro-dark/50 backdrop-blur-md relative border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="flex items-center justify-center gap-4 mb-4">
+                    <div class="h-[2px] w-12 bg-satiro-gold"></div>
+                    <h3 class="text-satiro-gold uppercase tracking-[0.3em] text-xs font-bold">Excelencia en el Servicio</h3>
+                    <div class="h-[2px] w-12 bg-satiro-gold"></div>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Propuestas de Valor</h2>
+                <p class="text-gray-400 text-lg">Rigurosidad en la gestión y pasión en la mezcla.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-satiro-black/40 p-10 rounded-2xl border border-white/5 hover:border-satiro-gold/40 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-white/5 text-8xl transition-all group-hover:text-satiro-gold/10">
+                        <i class="fas fa-glass-cheers"></i>
+                    </div>
+                    <div class="w-16 h-16 bg-satiro-dark rounded-xl flex items-center justify-center mb-8 text-satiro-gold shadow-lg shadow-black group-hover:bg-satiro-gold group-hover:text-satiro-black transition-all">
+                        <i class="fas fa-gem text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4 font-serif">Barra Premium</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Licores de etiquetas seleccionadas y cristalería fina. Un servicio diseñado para quienes no aceptan menos que la perfección.
+                    </p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-satiro-black/40 p-10 rounded-2xl border border-white/5 hover:border-satiro-gold/40 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-white/5 text-8xl transition-all group-hover:text-satiro-gold/10">
+                        <i class="fas fa-cocktail"></i>
+                    </div>
+                    <div class="w-16 h-16 bg-satiro-dark rounded-xl flex items-center justify-center mb-8 text-satiro-gold shadow-lg shadow-black group-hover:bg-satiro-gold group-hover:text-satiro-black transition-all">
+                        <i class="fas fa-vial text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4 font-serif">Mixología Táctica</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Cartas personalizadas basadas en el perfil de tus invitados. Sabores equilibrados con insumos 100% frescos y orgánicos.
+                    </p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-satiro-black/40 p-10 rounded-2xl border border-white/5 hover:border-satiro-gold/40 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-white/5 text-8xl transition-all group-hover:text-satiro-gold/10">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="w-16 h-16 bg-satiro-dark rounded-xl flex items-center justify-center mb-8 text-satiro-gold shadow-lg shadow-black group-hover:bg-satiro-gold group-hover:text-satiro-black transition-all">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4 font-serif">Gestión de Eventos</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Nos encargamos del despliegue logístico completo para que la administración de tu evento sea impecable y libre de estrés.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="carta" class="py-24 bg-bar-pattern bg-cover bg-center relative bg-fixed">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-5xl md:text-6xl font-serif font-bold text-white mb-4 italic">La Carta</h2>
+                <p class="text-satiro-gold font-sans uppercase tracking-[0.4em] text-xs font-bold">Selección Curada</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-5xl mx-auto">
+                <!-- Columna 1 -->
+                <div class="space-y-12">
+                    <div>
+                        <h3 class="text-2xl font-serif border-b border-satiro-gold/30 pb-4 mb-8 text-satiro-gold tracking-widest uppercase italic">Firma del Sátiro</h3>
+                        <div class="space-y-8">
+                            <div class="group cursor-default">
+                                <div class="flex justify-between items-baseline mb-1">
+                                    <h4 class="text-xl font-bold text-white group-hover:text-satiro-gold transition-colors">Elixir de Dioniso</h4>
+                                    <span class="h-px flex-grow mx-4 bg-white/10 group-hover:bg-satiro-gold/30 transition-all"></span>
+                                </div>
+                                <p class="text-sm text-gray-400 font-light italic">Pisco Quebranta premium, reducción de uva negra, jarabe de romero fresco.</p>
+                            </div>
+                            <div class="group cursor-default">
+                                <div class="flex justify-between items-baseline mb-1">
+                                    <h4 class="text-xl font-bold text-white group-hover:text-satiro-gold transition-colors">Néctar del Bosque</h4>
+                                    <span class="h-px flex-grow mx-4 bg-white/10 group-hover:bg-satiro-gold/30 transition-all"></span>
+                                </div>
+                                <p class="text-sm text-gray-400 font-light italic">Gin de autor, macerado de frutos rojos, tónica artesanal y cítricos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna 2 -->
+                <div class="space-y-12">
+                    <div>
+                        <h3 class="text-2xl font-serif border-b border-satiro-gold/30 pb-4 mb-8 text-satiro-gold tracking-widest uppercase italic">Clásicos Militares</h3>
+                        <div class="space-y-8">
+                            <div class="group cursor-default">
+                                <div class="flex justify-between items-baseline mb-1">
+                                    <h4 class="text-xl font-bold text-white group-hover:text-satiro-gold transition-colors">Pisco Sour Mariscal</h4>
+                                    <span class="h-px flex-grow mx-4 bg-white/10 group-hover:bg-satiro-gold/30 transition-all"></span>
+                                </div>
+                                <p class="text-sm text-gray-400 font-light italic">Nuestra versión técnica y equilibrada del rey de la coctelería peruana.</p>
+                            </div>
+                            <div class="group cursor-default">
+                                <div class="flex justify-between items-baseline mb-1">
+                                    <h4 class="text-xl font-bold text-white group-hover:text-satiro-gold transition-colors">Negroni Estratégico</h4>
+                                    <span class="h-px flex-grow mx-4 bg-white/10 group-hover:bg-satiro-gold/30 transition-all"></span>
+                                </div>
+                                <p class="text-sm text-gray-400 font-light italic">Campari, Vermouth Rosso y Gin envejecido con roble amazónico.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-24 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-0 bg-satiro-dark rounded-[2rem] overflow-hidden shadow-2xl border border-white/5">
+                
+                <!-- Contact Info -->
+                <div class="lg:w-2/5 bg-gradient-to-br from-satiro-black to-gray-900 p-12 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-satiro-gold/5 rounded-full blur-3xl"></div>
+                    
+                    <div class="relative z-10">
+                        <img src="logo-satiro.jpg" alt="Logo Sátiro" class="h-32 w-auto mb-8 rounded-full border border-satiro-gold/10 shadow-lg shadow-black/50" onerror="this.style.display='none'">
+                        <h2 class="text-4xl font-serif font-bold text-white mb-4">Mando Central</h2>
+                        <p class="text-gray-400 mb-10 leading-relaxed">Operamos con precisión administrativa para que tu única orden sea disfrutar.</p>
+                        
+                        <div class="space-y-8">
+                            <div class="flex items-start gap-5">
+                                <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-satiro-gold shrink-0 border border-white/10 group-hover:bg-satiro-gold">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold mb-1">Zona de Operaciones</h4>
+                                    <p class="text-gray-400 text-sm">Lima Metropolitana y Asia.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-5">
+                                <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-satiro-gold shrink-0 border border-white/10">
+                                    <i class="fab fa-whatsapp text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold mb-1">Directo</h4>
+                                    <p class="text-gray-400 text-sm">+51 985 774 212</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-10 border-t border-white/5 mt-10">
+                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">Respuesta en menos de 2 horas</p>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="lg:w-3/5 p-12 bg-satiro-black/60 backdrop-blur-xl">
+                    <form onsubmit="event.preventDefault(); alert('Su solicitud ha sido recibida, Mayor Pozo. Procesando...');">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                            <div class="relative">
+                                <label class="block text-xs font-bold text-satiro-gold uppercase tracking-widest mb-3">Nombre Completo</label>
+                                <input type="text" required class="w-full bg-white/5 border-b border-white/10 py-3 text-white focus:outline-none focus:border-satiro-gold transition-all placeholder:text-gray-700" placeholder="Ej. Mario Pozo">
+                            </div>
+                            <div class="relative">
+                                <label class="block text-xs font-bold text-satiro-gold uppercase tracking-widest mb-3">WhatsApp de Contacto</label>
+                                <input type="tel" required class="w-full bg-white/5 border-b border-white/10 py-3 text-white focus:outline-none focus:border-satiro-gold transition-all placeholder:text-gray-700" placeholder="+51 ...">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                            <div class="relative">
+                                <label class="block text-xs font-bold text-satiro-gold uppercase tracking-widest mb-3">Categoría de Evento</label>
+                                <select class="w-full bg-transparent border-b border-white/10 py-3 text-white focus:outline-none focus:border-satiro-gold transition-all appearance-none">
+                                    <option class="bg-satiro-black">Boda Real</option>
+                                    <option class="bg-satiro-black">Evento Corporativo</option>
+                                    <option class="bg-satiro-black">Gala Privada</option>
+                                    <option class="bg-satiro-black">Celebración de Grado</option>
+                                </select>
+                            </div>
+                            <div class="relative">
+                                <label class="block text-xs font-bold text-satiro-gold uppercase tracking-widest mb-3">Fecha de Despliegue</label>
+                                <input type="date" class="w-full bg-transparent border-b border-white/10 py-3 text-white focus:outline-none focus:border-satiro-gold transition-all [color-scheme:dark]">
+                            </div>
+                        </div>
+
+                        <div class="mb-10">
+                            <label class="block text-xs font-bold text-satiro-gold uppercase tracking-widest mb-3">Detalles Estratégicos</label>
+                            <textarea rows="3" class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-satiro-gold transition-all placeholder:text-gray-700" placeholder="Mencione número de invitados, lugar y preferencias..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="group w-full bg-satiro-gold text-satiro-black font-bold py-5 rounded-xl hover:bg-white transition-all duration-500 uppercase tracking-[0.3em] text-xs shadow-2xl shadow-satiro-gold/20 flex items-center justify-center gap-3">
+                            Enviar Solicitud
+                            <i class="fas fa-paper-plane group-hover:translate-x-2 transition-transform"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-satiro-black py-16 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <img src="logo-satiro.jpg" alt="Logo Sátiro" class="h-24 w-auto mx-auto mb-8 rounded-full border border-satiro-gold/20 shadow-lg shadow-satiro-gold/10" onerror="this.style.display='none'">
+            <div class="mb-8">
+                <a href="#inicio" class="font-serif text-3xl font-bold tracking-[0.2em] text-white">
+                    SÁTIRO <span class="text-satiro-gold">BAR</span>
+                </a>
+                <p class="text-gray-500 mt-4 max-w-md mx-auto text-sm leading-relaxed">
+                    Operaciones de coctelería móvil de alta gama. Gestión, administración y excelencia líquida en cada copa.
+                </p>
+            </div>
+            
+            <div class="flex gap-6 justify-center mb-10">
+                <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-satiro-gold hover:border-satiro-gold transition-all">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-satiro-gold hover:border-satiro-gold transition-all">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-satiro-gold hover:border-satiro-gold transition-all">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+            
+            <div class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-[0.4em] text-gray-600 font-bold">
+                <p>&copy; 2026 SÁTIRO BAR MOVIL. LIMA - PERÚ</p>
+                <p class="mt-4 md:mt-0">Administración y Protocolo Garantizado</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/51985774212?text=Hola%20Sátiro%20Bar,%20deseo%20información%20para%20un%20evento" target="_blank" class="float-ws" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 30) {
+                navbar.classList.add('glass-effect');
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-0');
+            } else {
+                navbar.classList.remove('glass-effect');
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-0');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
